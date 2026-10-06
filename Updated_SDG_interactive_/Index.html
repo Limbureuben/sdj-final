@@ -23,6 +23,18 @@
 		#dxYOrBoU {
 			background: #000;
 		}
+		#startup-mask {
+			position: fixed;
+			inset: 0;
+			z-index: 9999;
+			background: #000;
+			pointer-events: none;
+			opacity: 1;
+			transition: opacity 400ms ease;
+		}
+		#startup-mask.ready {
+			opacity: 0;
+		}
 	</style>
 	
 	
@@ -31,10 +43,18 @@
 </head>
 <body>
 	<div id="dxYOrBoU" style="position: relative; height: 100%; background: #000;"></div>
+	<div id="startup-mask" aria-hidden="true"></div>
 	<script type = "text/javascript">
 	(function(Saola) {
 	var li = {"color":"#2090e6","density":9,"diameter":60,"range":1,"shape":"oval","speed":1};
 	Saola.openDoc('SDGs_InteractiveUPDATED_Bckup.js', 'dxYOrBoU', {paused:false, preloaderOptions: li, center: 'both', autofit: true});})(AtomiSaola);
+	setTimeout(function() {
+		var mask = document.getElementById('startup-mask');
+		if (mask) {
+			mask.className = 'ready';
+			setTimeout(function() { if (mask.parentNode) mask.parentNode.removeChild(mask); }, 500);
+		}
+	}, 2500);
 	</script>
 </body>
 </html>
